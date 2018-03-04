@@ -1,0 +1,21 @@
+input[type='text']{
+  border:0;
+  width:100%;
+}
+
+input:focus, button:focus{
+  outline:none;
+}
+::placeholder{
+  color:inherit;
+}
+
+.App{
+  background: url('london.jpg');
+  background-position: center;
+  background-size: cover;
+}
+
+.search-box{
+  
+}

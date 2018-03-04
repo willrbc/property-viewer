@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import logo from './logo.svg'
-import './App.css'
+import './App.scss'
 
-import SearchBox from './components/SearchBox'
+import SimpleForm from './components/SearchBox'
 
 class App extends Component {
   constructor(props) {
@@ -10,8 +10,10 @@ class App extends Component {
     this.state = {searchTerm:''}
   }
   render() {
-    return (<div className="App">
-      <SearchBox />
+    return (
+      <div className="App">
+
+      <SimpleForm />
     </div>)
   }
 }

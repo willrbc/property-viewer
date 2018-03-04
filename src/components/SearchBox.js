@@ -1,50 +1,66 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
-import Search from './Search'
 
-const source = ['City of London','Barking and Dagenham','Barnet','Bexley','Brent','Bromley','Camden','Croydon','Ealing','Enfield','Greenwich','Hackney','Hammersmith and Fulham','Haringey','Harrow','Havering','Hillingdon','Hounslow','Islington','Kensington and Chelsea','Kingston upon Thames','Lambeth','Lewisham','Merton','Newham','Redbridge','Richmond upon Thames','Southwark','Sutton','Tower Hamlets','Waltham Forest','Wandsworth','Westminster','London']
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 
-class SearchBox extends Component {
-  componentWillMount() {
-    this.resetComponent()
+import {compose, withProps} from "recompose"
+
+import {withScriptjs} from "react-google-maps"
+
+
+const SearchComponent = compose(
+  withProps({
+    googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places",
+    loadingElement: <div style={{ height: `100%` }} />,
+    }),
+  withScriptjs,
+)((props) =>
+  <PlacesAutocomplete {...props} />
+)
+
+
+class SimpleForm extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { address: '' }
+    this.onChange = (address) => this.setState({ address })
   }
 
-  resetComponent = () => this.setState({ isLoading: false, results: [], value: '' })
+  handleFormSubmit = (event) => {
+    event.preventDefault()
 
-  handleResultSelect = (e, { result }) => this.setState({ value: result.title })
-
-  handleSearchChange = (e) => {
-    console.log(e.currentTarget.value)
-    this.setState({ isLoading: true, value:e.currentTarget.value})
-
-    setTimeout(() => {
-      if (this.state.value.length < 1) return this.resetComponent()
-
-      const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
-      const isMatch = result => re.test(result)
-
-      this.setState({
-        isLoading: false,
-        results: _.filter(source, isMatch),
-      })
-    }, 500)
+    geocodeByAddress(this.state.address)
+      .then(results => getLatLng(results[0]))
+      .then(latLng => console.log('Success', latLng))
+      .catch(error => console.error('Error', error))
   }
 
   render() {
-    const { isLoading, value, results } = this.state
+    const inputProps = {
+      value: this.state.address,
+      onChange: this.onChange,
+      placeholder: 'Enter city, town or street'
+    }
 
     return (
-        <Search classes="ma4 f1 pa2 tc ba b--light-blue"
-            inputClasses="input-reset tc"
-            loading={isLoading}
-            onResultSelect={this.handleResultSelect}
-            onSearchChange={this.handleSearchChange}
-            results={results}
-            placeholder='Search by location'
-          />
-
+      <div className="vh-100 dt w-100 ">
+        <div className="dtc v-mid">
+        <form className="search-box flex bg-animate hover-bg-blue dtc o-75 white ph3 ph4-l" onSubmit={this.handleFormSubmit}>
+          <SearchComponent classNames={{
+            root: 'w-75 mv4 f1 pv2 ba b--white white relative',
+            input: 'input-reset ph2 bg-transparent white',
+            autocompleteContainer: 'results-container absolute top-100 left-0 f3'
+          }} inputProps={inputProps} />
+          <button className="pa2 mv4 f1 brtb white bg-transparent b--white f1" type="submit">Go!</button>
+        </form>
+      </div>
+    </div>
     )
   }
 }
 
-export default SearchBox
+
+//ma4 f1 pa2 tc ba b--light-blue
+
+//input-reset tc
+export default SimpleForm
