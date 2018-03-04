@@ -1,56 +1,37 @@
-import _ from 'lodash'
-import faker from 'faker'
 import React, { Component } from 'react'
-import { Search, Grid, Header } from 'semantic-ui-react'
 
-const source = _.times(5, () => ({
-  title: faker.company.companyName(),
-  description: faker.company.catchPhrase(),
-  image: faker.internet.avatar(),
-  price: faker.finance.amount(0, 100, 2, '$'),
-}))
-
-class SearchBox extends Component {
-  componentWillMount() {
-    this.resetComponent()
+class Loading extends Component {
+  render() {
+    if (this.props.loading){
+      return (<div>LOADING...</div>)
+    } else {
+      return null
+    }
   }
+}
 
-  resetComponent = () => this.setState({ isLoading: false, results: [], value: '' })
+class Search extends Component {
 
-  handleResultSelect = (e, { result }) => this.setState({ value: result.title })
-
-  handleSearchChange = (e, { value }) => {
-    this.setState({ isLoading: true, value })
-
-    setTimeout(() => {
-      if (this.state.value.length < 1) return this.resetComponent()
-
-      const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
-      const isMatch = result => re.test(result.title)
-
-      this.setState({
-        isLoading: false,
-        results: _.filter(source, isMatch),
-      })
-    }, 500)
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log(nextProps.results)
+    return this.props.loading !== nextProps.loading
   }
 
   render() {
-    const { isLoading, value, results } = this.state
-
+    const props = this.props
+    let Results = props.results.length > 0 ? props.results.map((result)=>{
+      return (<div>{result}</div>)
+    }) : ()=>{return null};
     return (
-        <Search
-            loading={isLoading}
-            onResultSelect={this.handleResultSelect}
-            onSearchChange={this.handleSearchChange}
-            results={results}
-            placeholder='Enter a location'
-            value={value}
-            {...this.props}
-          />
-
+    <div>
+      <div className={props.classes}>
+        <input type='text' className={props.inputClasses} onChange={props.onSearchChange} placeholder={props.placeholder}/>
+      </div>
+      <Loading loading={props.loading}/>
+      <Results/>
+    </div>
     )
   }
 }
 
-export default SearchBox
+export default Search
