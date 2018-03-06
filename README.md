@@ -1,8 +1,10 @@
-##The project is a quick and dirty demo using react to consume a property API and browse the properties
+##This project is a quick and dirty demo using react to consume a property API and browse the properties
 
-*Feature complete within reasonable scope
-..*known issues
-...*infinite scroll not working
-...*Cannot close selected property window in map view
-...*enter requires double tap in autocomplete window
-...*Map is limited to a number of icons (probably because I haven't used an API key)
+Feature complete within reasonable scope
+
+##Known issues:
+
+- infinite scroll not working
+- Cannot close selected property window in map view
+- enter requires double tap in autocomplete window
+- Map is limited to a number of icons (probably because I haven't used an API key)
