@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import logo from './logo.svg'
 import './App.scss'
 
-import SimpleForm from './components/SearchBox'
+import PropertySearch from './components/PropertySearch'
 
 class App extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class App extends Component {
     return (
       <div className="App">
 
-      <SimpleForm />
+      <PropertySearch />
     </div>)
   }
 }

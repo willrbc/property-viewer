@@ -3,19 +3,60 @@ input[type='text']{
   width:100%;
 }
 
-input:focus, button:focus{
+select{
+  border:0;
+}
+
+input:focus, button:focus, select:focus{
   outline:none;
 }
 ::placeholder{
   color:inherit;
 }
 
-.App{
+body{
+  background-color: #e9e9e9;
+}
+.skyline {
   background: url('london.jpg');
-  background-position: center;
   background-size: cover;
+  background-position: center center;
 }
 
+
+
 .search-box{
-  
+  top:45%;
+  // transition: top .5s ease-out;
+  &.has-results{
+    top:0%;
+    background-color: rgba(#357edd, 1)
+
+  }
+  background-color: rgba(#357edd, 0.7)
+}
+
+
+.example-appear {
+  opacity: 0.01;
+}
+
+.example-appear.example-appear-active {
+  opacity: 1;
+  transition: opacity 1s ease-in;
+}
+
+.loader{
+  position:absolute;
+  left:50%;
+  top:80%;
+  text-align:center;
+  margin:0px auto;
+  width:100%;
+}
+.load-more{
+  .loader{
+    position:relative;
+    top:0;
+  }
 }
