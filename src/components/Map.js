@@ -8,12 +8,11 @@ import {withScriptjs, withGoogleMap, GoogleMap, Marker} from "react-google-maps"
 
 const Map = compose(
   withProps({
-    googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places",
+    googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyC0P-DRUE9BKaD-bqqxrC7Wt7fRaCMf7Hk&v=3.exp&libraries=places,geometry,drawing",
     loadingElement: <div style={{ height: `100%` }} />,
     containerElement: <div className="vh-100 pt6" />,
     mapElement: <div style={{ height: `100%` }} />,
   }),
-  withScriptjs,
   withGoogleMap
 )((props) =>
   <GoogleMap
