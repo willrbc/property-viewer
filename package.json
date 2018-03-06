@@ -111,5 +111,5 @@
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.7"
   },
-  "homepage": "http://willrbc.github.io/urban-markets"
+  "homepage": "http://willrbc.github.io/property-viewer"
 }
