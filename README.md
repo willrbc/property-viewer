@@ -1,8 +1,8 @@
-##This project is a quick and dirty demo using react to consume a property API and browse the properties
+#This project is a quick and dirty demo using react to consume a property API and browse the properties
 
 Feature complete within reasonable scope
 
-##Known issues:
+#Known issues:
 
 - infinite scroll not working
 - Cannot close selected property window in map view
