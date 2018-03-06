@@ -130,7 +130,7 @@ class PropertySearch extends Component {
       }
     }
     console.log(this.state, query)
-    const url = `http://localhost:8080/api.nestoria.co.uk/api?${queryString.stringify(query)}`
+    const url = `https://cors-anywhere.herokuapp.com/https://api.nestoria.co.uk/api?${queryString.stringify(query)}`
     console.log(url)
     fetch(url).then((resp) => resp.json()).then((data) => {
       const {
